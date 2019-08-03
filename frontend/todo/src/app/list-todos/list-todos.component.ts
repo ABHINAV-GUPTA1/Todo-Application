@@ -18,6 +18,7 @@ export class Todo {
 export class ListTodosComponent implements OnInit {
 
   todos: Todo[];
+  message: String;
   //  = [
   //   new Todo(1, "Learn Java", true, new Date()),
   //   new Todo(2, "Become an Expert in spring", true, new Date()),
@@ -32,6 +33,10 @@ export class ListTodosComponent implements OnInit {
   constructor(private todoService: TodoDataService) { }
 
   ngOnInit() {
+    this.refreshTodos();
+  }
+
+  refreshTodos() {
     this.todoService.retrieveAllTodos('abhinav').subscribe(
       response=>{
         this.todos = response;
@@ -39,7 +44,17 @@ export class ListTodosComponent implements OnInit {
         alert('Error occured!! ');
         console.log(error);
       }
-    )
+    )  
+  }
+
+  deleteTodoByIdAndUsername(id) {
+    this.todoService.deleteTodoByIdAndUsername('abhinav', id).subscribe(
+      response=>{
+        this.message = `Deletion of Todo With id ${id} is successful.`;
+        this.refreshTodos();
+      },
+      error=>alert(`Error while deleting todo with id ${id}.`)
+    );
   }
 
 }
