@@ -9,4 +9,6 @@ public interface TodoService {
 	public List<Todo> fetchAllTodos(String name);
 	
 	public Todo deleteById(String username, long id);
+
+	public Todo fetchTodoById(String name, long id);
 }

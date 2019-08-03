@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -48,6 +47,11 @@ public class TodoServiceImpl implements TodoService {
 
 	private Todo findById(String username, long id) {
 		return todos.stream().filter(a -> a.getId() == id && a.getUserName().equals(username)).findFirst().orElse(null);
+	}
+
+	@Override
+	public Todo fetchTodoById(String name, long id) {
+		return findById(name, id);
 	}
 
 }

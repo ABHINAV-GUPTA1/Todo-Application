@@ -28,6 +28,11 @@ public class TodoController {
 		return todoService.fetchAllTodos(name);
 	}
 	
+	@GetMapping("/users/{username}/todos/{id}")
+	public Todo fetchTodo(@PathVariable(name = "username") String name, @PathVariable(name="id")long id) {
+		return todoService.fetchTodoById(name, id);
+	}
+	
 	@DeleteMapping("/users/{username}/todos/{id}")
 	public ResponseEntity<Void> deleteTodo(@PathVariable String username, @PathVariable long id) {
 		if (!Objects.isNull(todoService.deleteById(username, id))) {
