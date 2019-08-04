@@ -14,15 +14,18 @@ import com.learn.todo.application.todo.service.TodoService;
 @Service
 public class TodoServiceImpl implements TodoService {
 
+	private static final String LEARN_ANGULAR = "Learn Angular";
+	private static final String DEF = "def";
+	private static final String ABHINAV = "abhinav";
 	private static List<Todo> todos = new ArrayList<>();
 	private static long idCounter = 0;
 
 	static {
-		todos.add(new Todo(++idCounter, "abhinav", "Learn Java", new Date(), Boolean.TRUE));
-		todos.add(new Todo(++idCounter, "abhinav", "Learn Spring", new Date(), Boolean.TRUE));
-		todos.add(new Todo(++idCounter, "abhinav", "Learn Hibernate", new Date(), Boolean.TRUE));
-		todos.add(new Todo(++idCounter, "abhinav", "Learn Angular", new Date(), Boolean.TRUE));
-		todos.add(new Todo(++idCounter, "def", "Learn Angular", new Date(), Boolean.TRUE));
+		todos.add(new Todo(++idCounter, ABHINAV, "Learn Java", new Date(), Boolean.TRUE));
+		todos.add(new Todo(++idCounter, ABHINAV, "Learn Spring", new Date(), Boolean.TRUE));
+		todos.add(new Todo(++idCounter, ABHINAV, "Learn Hibernate", new Date(), Boolean.TRUE));
+		todos.add(new Todo(++idCounter, ABHINAV, LEARN_ANGULAR, new Date(), Boolean.TRUE));
+		todos.add(new Todo(++idCounter, DEF, LEARN_ANGULAR, new Date(), Boolean.TRUE));
 	}
 
 	@Override
@@ -52,6 +55,23 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public Todo fetchTodoById(String name, long id) {
 		return findById(name, id);
+	}
+
+	
+	/**
+	 *Save the todo to db if id is 0 or -1 else update todo.
+	 *
+	 */
+	@Override
+	public Todo save(Todo todo) {
+		if (todo.getId() == -1 || todo.getId() == 0) {
+			todo.setId(++idCounter);
+			todos.add(todo);
+		} else {
+			deleteById(todo.getUserName(), todo.getId());
+			todos.add(todo);
+		}
+		return todo;
 	}
 
 }

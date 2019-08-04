@@ -11,4 +11,6 @@ public interface TodoService {
 	public Todo deleteById(String username, long id);
 
 	public Todo fetchTodoById(String name, long id);
+	
+	public Todo save(Todo todo);
 }

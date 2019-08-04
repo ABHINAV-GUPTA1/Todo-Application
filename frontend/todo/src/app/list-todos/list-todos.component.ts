@@ -50,10 +50,10 @@ export class ListTodosComponent implements OnInit {
     )
   }
 
-  deleteTodoByIdAndUsername(id) {
+  deleteTodoByIdAndUsername(id, todoName) {
     this.todoService.deleteTodoByIdAndUsername('abhinav', id).subscribe(
       response => {
-        this.message = `Deletion of Todo With id ${id} is successful.`;
+        this.message = `Deletion of Todo With desctiption "${todoName}" is successful.`;
         this.refreshTodos();
       },
       error => alert(`Error while deleting todo with id ${id}.`)
@@ -64,4 +64,8 @@ export class ListTodosComponent implements OnInit {
     this.router.navigate(['todos', id]);
   }
 
+
+  addTodo() {
+    this.router.navigate(['todos', -1]);
+  }
 }
