@@ -28,9 +28,8 @@ public class Todo {
 		if (getClass() != obj.getClass())
 			return false;
 		Todo other = (Todo) obj;
-		if (id != other.id)
-			return false;
-		return true;
+		
+		return (id != other.id) ? Boolean.FALSE : Boolean.TRUE;
 	}
 
 	@Override

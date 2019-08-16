@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoDataService } from '../service/data/todo-data.service';
+import { Router } from '@angular/router';
 
 export class Todo {
   constructor(
     public id: number,
     public description: string,
-    public completed: boolean, 
+    public completed: boolean,
     public targetDate: Date
-  ) {  }
+  ) { }
 }
 
 @Component({
@@ -30,7 +31,9 @@ export class ListTodosComponent implements OnInit {
   //   description: "Learn Java"
   // };
 
-  constructor(private todoService: TodoDataService) { }
+  constructor(private todoService: TodoDataService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.refreshTodos();
@@ -38,23 +41,31 @@ export class ListTodosComponent implements OnInit {
 
   refreshTodos() {
     this.todoService.retrieveAllTodos('abhinav').subscribe(
-      response=>{
+      response => {
         this.todos = response;
-      }, error=> {
+      }, error => {
         alert('Error occured!! ');
         console.log(error);
       }
-    )  
+    )
   }
 
-  deleteTodoByIdAndUsername(id) {
+  deleteTodoByIdAndUsername(id, todoName) {
     this.todoService.deleteTodoByIdAndUsername('abhinav', id).subscribe(
-      response=>{
-        this.message = `Deletion of Todo With id ${id} is successful.`;
+      response => {
+        this.message = `Deletion of Todo With desctiption "${todoName}" is successful.`;
         this.refreshTodos();
       },
-      error=>alert(`Error while deleting todo with id ${id}.`)
+      error => alert(`Error while deleting todo with id ${id}.`)
     );
   }
 
+  updateTodoByIdAndUsername(id) {
+    this.router.navigate(['todos', id]);
+  }
+
+
+  addTodo() {
+    this.router.navigate(['todos', -1]);
+  }
 }

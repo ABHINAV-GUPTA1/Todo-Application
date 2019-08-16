@@ -13,7 +13,6 @@ public class HelloWorldController {
 
 	@GetMapping("/helloworld")
 	public HelloWorldBean helloWorldMessage() {
-//		throw new RuntimeException("Error occured! Please contact administrator!!");
 		return new HelloWorldBean("HelloWorld!");
 	}
 
